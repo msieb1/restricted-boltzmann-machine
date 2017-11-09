@@ -266,33 +266,35 @@ def load_data():
     dat['y_valid'] = y_valid
 
     return dat
-# ONLY LOAD IF .npy files not stored!!
-data = load_data()
+if __name__ == '__main__':
 
-#NORMALIZING?????????????????????????????????
-x_train = (np.load('x_train.npy'))
-y_train = (np.load('y_train.npy'))
-x_valid = (np.load('x_valid.npy'))
-y_valid = (np.load('y_valid.npy'))
-x_test = (np.load('x_test.npy'))
-y_test = (np.load('y_test.npy'))
-# store data in a dictionary
-data = {'x_train': x_train, 'y_train': y_train, 'x_valid': x_valid, 'y_valid': y_valid, 'x_test': x_test, 'y_valid': y_valid}
-dim_inputs = x_train.shape[0]
+	# ONLY LOAD IF .npy files not stored!!
+	data = load_data()
+
+	#NORMALIZING?????????????????????????????????
+	x_train = (np.load('x_train.npy'))
+	y_train = (np.load('y_train.npy'))
+	x_valid = (np.load('x_valid.npy'))
+	y_valid = (np.load('y_valid.npy'))
+	x_test = (np.load('x_test.npy'))
+	y_test = (np.load('y_test.npy'))
+	# store data in a dictionary
+	data = {'x_train': x_train, 'y_train': y_train, 'x_valid': x_valid, 'y_valid': y_valid, 'x_test': x_test, 'y_valid': y_valid}
+	dim_inputs = x_train.shape[0]
 
 
-##### SET HYPERPARAMETERS AND UNIT CONFIGURATON ########
-num_hidden = 100
-l_rate = 0.05
-batch_size = 50
-n_epochs = 100
-gibbs_steps = 20
-################################################
+	##### SET HYPERPARAMETERS AND UNIT CONFIGURATON ########
+	num_hidden = 100
+	l_rate = 0.05
+	batch_size = 50
+	n_epochs = 100
+	gibbs_steps = 20
+	################################################
 
-r = RBM(num_visible=dim_inputs, num_hidden=num_hidden)
-error_tracker = r.train(data=data, n_epochs=n_epochs, l_rate=l_rate, batch_size=batch_size, gibbs_steps=gibbs_steps)
-images = r.sample_image(x_train,100,1000)
-path = '/home/max/PyCharm/PycharmProjects/10-707/hw2/figures/'
-plotting(path, images, error_tracker, save_to_file=False)
-plt.show()
+	r = RBM(num_visible=dim_inputs, num_hidden=num_hidden)
+	error_tracker = r.train(data=data, n_epochs=n_epochs, l_rate=l_rate, batch_size=batch_size, gibbs_steps=gibbs_steps)
+	images = r.sample_image(x_train,100,1000)
+	path = '/home/max/PyCharm/PycharmProjects/10-707/hw2/figures/'
+	plotting(path, images, error_tracker, save_to_file=False)
+	plt.show()
 
